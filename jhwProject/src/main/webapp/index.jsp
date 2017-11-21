@@ -8,7 +8,7 @@
 <title></title>
 <script type="text/javascript">
 function loadPage(){
-	location.href="http://192.168.1.101:8080/jhw/h5index/toindex";			
+	location.href="http://192.168.1.101:8089/jhw/h5index/toindex";			
 }
 </script>
 </head>
