@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.RestaurantPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.RestaurantPoJo">
+    <id column="trid" jdbcType="INTEGER" property="trid" />
+    <result column="business_id" jdbcType="VARCHAR" property="businessId" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="location" jdbcType="VARCHAR" property="location" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    trid, business_id, name, create_date,location
+  </sql>
+  <select id="getAllRestaurant" resultMap="BaseResultMap">
+  	select 
+  		<include refid="Base_Column_List"/>
+  	from
+  		t_restaurant;
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_restaurant
+    where trid = #{trid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_restaurant
+    where trid = #{trid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.RestaurantPoJo">
+    insert into t_restaurant (trid, business_id, name, 
+      create_date)
+    values (#{trid,jdbcType=INTEGER}, #{businessId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.RestaurantPoJo">
+    insert into t_restaurant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="trid != null">
+        trid,
+      </if>
+      <if test="businessId != null">
+        business_id,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="trid != null">
+        #{trid,jdbcType=INTEGER},
+      </if>
+      <if test="businessId != null">
+        #{businessId,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.RestaurantPoJo">
+    update t_restaurant
+    <set>
+      <if test="businessId != null">
+        business_id = #{businessId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where trid = #{trid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.RestaurantPoJo">
+    update t_restaurant
+    set business_id = #{businessId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+    where trid = #{trid,jdbcType=INTEGER}
+  </update>
+</mapper>

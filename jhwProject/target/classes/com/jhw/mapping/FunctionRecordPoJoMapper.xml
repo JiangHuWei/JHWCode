@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.FunctionRecordPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.FunctionRecordPoJo">
+    <id column="tfrid" jdbcType="INTEGER" property="tfrid" />
+    <result column="functionid" jdbcType="INTEGER" property="functionid" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tfrid, functionid, create_date, ip
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_function_record
+    where tfrid = #{tfrid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_function_record
+    where tfrid = #{tfrid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.FunctionRecordPoJo">
+    insert into t_function_record (tfrid, functionid, create_date, 
+      ip)
+    values (#{tfrid,jdbcType=INTEGER}, #{functionid,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{ip,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.FunctionRecordPoJo">
+    insert into t_function_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tfrid != null">
+        tfrid,
+      </if>
+      <if test="functionid != null">
+        functionid,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tfrid != null">
+        #{tfrid,jdbcType=INTEGER},
+      </if>
+      <if test="functionid != null">
+        #{functionid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.FunctionRecordPoJo">
+    update t_function_record
+    <set>
+      <if test="functionid != null">
+        functionid = #{functionid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tfrid = #{tfrid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.FunctionRecordPoJo">
+    update t_function_record
+    set functionid = #{functionid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      ip = #{ip,jdbcType=VARCHAR}
+    where tfrid = #{tfrid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.MRestaurantUserPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.MRestaurantUserPoJo">
+    <id column="tmruid" jdbcType="INTEGER" property="tmruid" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="restaurantid" jdbcType="INTEGER" property="restaurantid" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tmruid, userid, restaurantid, create_date, create_name, update_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_m_restaurant_user
+    where tmruid = #{tmruid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_m_restaurant_user
+    where tmruid = #{tmruid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.MRestaurantUserPoJo">
+    insert into t_m_restaurant_user (tmruid, userid, restaurantid, 
+      create_date, create_name, update_date
+      )
+    values (#{tmruid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{restaurantid,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createName,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.MRestaurantUserPoJo">
+    insert into t_m_restaurant_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tmruid != null">
+        tmruid,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="restaurantid != null">
+        restaurantid,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tmruid != null">
+        #{tmruid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="restaurantid != null">
+        #{restaurantid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.MRestaurantUserPoJo">
+    update t_m_restaurant_user
+    <set>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="restaurantid != null">
+        restaurantid = #{restaurantid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where tmruid = #{tmruid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.MRestaurantUserPoJo">
+    update t_m_restaurant_user
+    set userid = #{userid,jdbcType=INTEGER},
+      restaurantid = #{restaurantid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_name = #{createName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP}
+    where tmruid = #{tmruid,jdbcType=INTEGER}
+  </update>
+</mapper>

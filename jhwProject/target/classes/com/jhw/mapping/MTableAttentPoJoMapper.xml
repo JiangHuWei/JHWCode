@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.MTableAttentPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.MTableAttentPoJo">
+    <id column="tmtaid" jdbcType="INTEGER" property="tmtaid" />
+    <result column="table_id" jdbcType="INTEGER" property="tableId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="attentstatus" jdbcType="INTEGER" property="attentStatus" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="commentid" jdbcType="VARCHAR" property="commentId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tmtaid, table_id, user_id, create_date, user_name,status,attentstatus,reason,commentid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_m_tableattent
+    where tmtaid = #{tmtaid,jdbcType=INTEGER} and status=0
+  </select>
+  
+  <!-- 根据拼桌主键检索改拼桌所有参与人(包括有效和无效用户) -->
+  <select id="selectAllUserByTableId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  	SELECT 
+  		<include refid="Base_Column_List" />
+  	FROM
+  		t_m_tableattent
+  	WHERE
+  		table_id = #{tableId,jdbcType=INTEGER}
+  </select>
+  <!-- 根据tableid和userid检查对应拼桌人是否存在 -->
+  <select id="selectByTableAndUser" resultMap="BaseResultMap">
+  	SELECT 
+  		<include refid="Base_Column_List" /> 
+  	FROM 
+  		t_m_tableattent 
+  	WHERE 
+  		table_id=#{tableId, jdbcType=INTEGER} 
+  	AND 
+  		user_id=#{userId, jdbcType=INTEGER}
+  </select>
+  <!-- 根据拼桌id检索该拼桌的所有参与人 -->
+  <select id="getValidTakePartIn" resultMap="BaseResultMap">
+	SELECT 
+		<include refid="Base_Column_List" />
+	FROM 
+		t_m_tableattent 
+	WHERE 
+		table_id=#{tableId,jdbcType=INTEGER}
+	AND
+		`status`=0;  
+  </select>
+  <!-- 根据主键更新该记录status -->
+  <update id="updateStatusById" parameterType="java.lang.Integer">
+  	UPDATE t_m_tableattent
+	SET `status` = #{statusVal,jdbcType=INTEGER}
+	WHERE
+		tmtaid = #{tmtaidVal,jdbcType=INTEGER};
+  </update>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_m_tableattent
+    where tmtaid = #{tmtaid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.MTableAttentPoJo">
+    insert into t_m_tableattent (tmtaid, table_id, user_id, 
+      create_date, user_name)
+    values (#{tmtaid,jdbcType=INTEGER}, #{tableId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.MTableAttentPoJo">
+    insert into t_m_tableattent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tmtaid != null">
+        tmtaid,
+      </if>
+      <if test="tableId != null">
+        table_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tmtaid != null">
+        #{tmtaid,jdbcType=INTEGER},
+      </if>
+      <if test="tableId != null">
+        #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.MTableAttentPoJo">
+    update t_m_tableattent
+    <set>
+      <if test="tableId != null">
+        table_id = #{tableId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tmtaid = #{tmtaid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.MTableAttentPoJo">
+    update t_m_tableattent
+    set table_id = #{tableId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      user_name = #{userName,jdbcType=VARCHAR}
+    where tmtaid = #{tmtaid,jdbcType=INTEGER}
+  </update>
+</mapper>

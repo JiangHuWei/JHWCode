@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.MPartyMenuPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.MPartyMenuPoJo">
+    <id column="tmpmid" jdbcType="INTEGER" property="tmpmid" />
+    <result column="partyid" jdbcType="INTEGER" property="partyid" />
+    <result column="foodid" jdbcType="INTEGER" property="foodid" />
+    <result column="create_userid" jdbcType="INTEGER" property="createUserid" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tmpmid, partyid, foodid, create_userid, create_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_m_party_menu
+    where tmpmid = #{tmpmid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_m_party_menu
+    where tmpmid = #{tmpmid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.MPartyMenuPoJo">
+    insert into t_m_party_menu (tmpmid, partyid, foodid, 
+      create_userid, create_date)
+    values (#{tmpmid,jdbcType=INTEGER}, #{partyid,jdbcType=INTEGER}, #{foodid,jdbcType=INTEGER}, 
+      #{createUserid,jdbcType=INTEGER}, #{createDate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.MPartyMenuPoJo">
+    insert into t_m_party_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tmpmid != null">
+        tmpmid,
+      </if>
+      <if test="partyid != null">
+        partyid,
+      </if>
+      <if test="foodid != null">
+        foodid,
+      </if>
+      <if test="createUserid != null">
+        create_userid,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tmpmid != null">
+        #{tmpmid,jdbcType=INTEGER},
+      </if>
+      <if test="partyid != null">
+        #{partyid,jdbcType=INTEGER},
+      </if>
+      <if test="foodid != null">
+        #{foodid,jdbcType=INTEGER},
+      </if>
+      <if test="createUserid != null">
+        #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.MPartyMenuPoJo">
+    update t_m_party_menu
+    <set>
+      <if test="partyid != null">
+        partyid = #{partyid,jdbcType=INTEGER},
+      </if>
+      <if test="foodid != null">
+        foodid = #{foodid,jdbcType=INTEGER},
+      </if>
+      <if test="createUserid != null">
+        create_userid = #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=DATE},
+      </if>
+    </set>
+    where tmpmid = #{tmpmid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.MPartyMenuPoJo">
+    update t_m_party_menu
+    set partyid = #{partyid,jdbcType=INTEGER},
+      foodid = #{foodid,jdbcType=INTEGER},
+      create_userid = #{createUserid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=DATE}
+    where tmpmid = #{tmpmid,jdbcType=INTEGER}
+  </update>
+</mapper>

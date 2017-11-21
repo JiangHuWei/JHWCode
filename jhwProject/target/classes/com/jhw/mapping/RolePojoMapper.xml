@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.RolePojoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.RolePojo">
+    <id column="trid" jdbcType="INTEGER" property="trid" />
+    <result column="role_name" jdbcType="VARCHAR" property="roleName" />
+    <result column="role_desc" jdbcType="VARCHAR" property="roleDesc" />
+    <result column="allow_edit" jdbcType="INTEGER" property="allowEdit" />
+    <result column="allow_delete" jdbcType="INTEGER" property="allowDelete" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_userid" jdbcType="INTEGER" property="createUserid" />
+    <result column="create_username" jdbcType="VARCHAR" property="createUsername" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="update_userid" jdbcType="INTEGER" property="updateUserid" />
+    <result column="update_username" jdbcType="VARCHAR" property="updateUsername" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="is_system_user" jdbcType="INTEGER" property="isSystemUser"/>
+  </resultMap>
+  <sql id="Base_Column_List">
+    trid, role_name, role_desc, allow_edit, allow_delete, create_date, create_userid, 
+    create_username, update_date, update_userid, update_username, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_role
+    where trid = #{trid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_role
+    where trid = #{trid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.RolePojo">
+    insert into t_role (trid, role_name, role_desc, 
+      allow_edit, allow_delete, create_date, 
+      create_userid, create_username, update_date, 
+      update_userid, update_username, status
+      )
+    values (#{trid,jdbcType=INTEGER}, #{roleName,jdbcType=VARCHAR}, #{roleDesc,jdbcType=VARCHAR}, 
+      #{allowEdit,jdbcType=INTEGER}, #{allowDelete,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createUserid,jdbcType=INTEGER}, #{createUsername,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{updateUserid,jdbcType=INTEGER}, #{updateUsername,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.RolePojo">
+    insert into t_role
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="trid != null">
+        trid,
+      </if>
+      <if test="roleName != null">
+        role_name,
+      </if>
+      <if test="roleDesc != null">
+        role_desc,
+      </if>
+      <if test="allowEdit != null">
+        allow_edit,
+      </if>
+      <if test="allowDelete != null">
+        allow_delete,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createUserid != null">
+        create_userid,
+      </if>
+      <if test="createUsername != null">
+        create_username,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="updateUserid != null">
+        update_userid,
+      </if>
+      <if test="updateUsername != null">
+        update_username,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="trid != null">
+        #{trid,jdbcType=INTEGER},
+      </if>
+      <if test="roleName != null">
+        #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null">
+        #{roleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="allowEdit != null">
+        #{allowEdit,jdbcType=INTEGER},
+      </if>
+      <if test="allowDelete != null">
+        #{allowDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserid != null">
+        #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createUsername != null">
+        #{createUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserid != null">
+        #{updateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUsername != null">
+        #{updateUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.RolePojo">
+    update t_role
+    <set>
+      <if test="roleName != null">
+        role_name = #{roleName,jdbcType=VARCHAR},
+      </if>
+      <if test="roleDesc != null">
+        role_desc = #{roleDesc,jdbcType=VARCHAR},
+      </if>
+      <if test="allowEdit != null">
+        allow_edit = #{allowEdit,jdbcType=INTEGER},
+      </if>
+      <if test="allowDelete != null">
+        allow_delete = #{allowDelete,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserid != null">
+        create_userid = #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createUsername != null">
+        create_username = #{createUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserid != null">
+        update_userid = #{updateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="updateUsername != null">
+        update_username = #{updateUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where trid = #{trid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.RolePojo">
+    update t_role
+    set role_name = #{roleName,jdbcType=VARCHAR},
+      role_desc = #{roleDesc,jdbcType=VARCHAR},
+      allow_edit = #{allowEdit,jdbcType=INTEGER},
+      allow_delete = #{allowDelete,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_userid = #{createUserid,jdbcType=INTEGER},
+      create_username = #{createUsername,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_userid = #{updateUserid,jdbcType=INTEGER},
+      update_username = #{updateUsername,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where trid = #{trid,jdbcType=INTEGER}
+  </update>
+</mapper>

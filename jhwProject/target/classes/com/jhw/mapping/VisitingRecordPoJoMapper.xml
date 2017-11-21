@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.VisitingRecordPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.VisitingRecordPoJo">
+    <id column="tvrid" jdbcType="INTEGER" property="tvrid" />
+    <result column="be_visitedid" jdbcType="INTEGER" property="beVisitedid" />
+    <result column="visitorid" jdbcType="INTEGER" property="visitorid" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tvrid, be_visitedid, visitorid, create_date
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_visiting_record
+    where tvrid = #{tvrid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_visiting_record
+    where tvrid = #{tvrid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.VisitingRecordPoJo">
+    insert into t_visiting_record (tvrid, be_visitedid, visitorid, 
+      create_date)
+    values (#{tvrid,jdbcType=INTEGER}, #{beVisitedid,jdbcType=INTEGER}, #{visitorid,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.VisitingRecordPoJo">
+    insert into t_visiting_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tvrid != null">
+        tvrid,
+      </if>
+      <if test="beVisitedid != null">
+        be_visitedid,
+      </if>
+      <if test="visitorid != null">
+        visitorid,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tvrid != null">
+        #{tvrid,jdbcType=INTEGER},
+      </if>
+      <if test="beVisitedid != null">
+        #{beVisitedid,jdbcType=INTEGER},
+      </if>
+      <if test="visitorid != null">
+        #{visitorid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.VisitingRecordPoJo">
+    update t_visiting_record
+    <set>
+      <if test="beVisitedid != null">
+        be_visitedid = #{beVisitedid,jdbcType=INTEGER},
+      </if>
+      <if test="visitorid != null">
+        visitorid = #{visitorid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where tvrid = #{tvrid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.VisitingRecordPoJo">
+    update t_visiting_record
+    set be_visitedid = #{beVisitedid,jdbcType=INTEGER},
+      visitorid = #{visitorid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP}
+    where tvrid = #{tvrid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.ProblemContentPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.ProblemContentPoJo">
+    <id column="tpcid" jdbcType="INTEGER" property="tpcid" />
+    <result column="typeid" jdbcType="INTEGER" property="typeid" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_userid" jdbcType="INTEGER" property="createUserid" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="update_userid" jdbcType="INTEGER" property="updateUserid" />
+    <result column="update_name" jdbcType="VARCHAR" property="updateName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.jhw.pojo.ProblemContentPoJo">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tpcid, typeid, create_date, create_userid, create_name, update_date, update_userid, 
+    update_name, status
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_problem_content
+    where tpcid = #{tpcid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_problem_content
+    where tpcid = #{tpcid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.ProblemContentPoJo">
+    insert into t_problem_content (tpcid, typeid, create_date, 
+      create_userid, create_name, update_date, 
+      update_userid, update_name, status, 
+      content)
+    values (#{tpcid,jdbcType=INTEGER}, #{typeid,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createUserid,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{updateUserid,jdbcType=INTEGER}, #{updateName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.ProblemContentPoJo">
+    insert into t_problem_content
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tpcid != null">
+        tpcid,
+      </if>
+      <if test="typeid != null">
+        typeid,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createUserid != null">
+        create_userid,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="updateUserid != null">
+        update_userid,
+      </if>
+      <if test="updateName != null">
+        update_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tpcid != null">
+        #{tpcid,jdbcType=INTEGER},
+      </if>
+      <if test="typeid != null">
+        #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserid != null">
+        #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserid != null">
+        #{updateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="updateName != null">
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.ProblemContentPoJo">
+    update t_problem_content
+    <set>
+      <if test="typeid != null">
+        typeid = #{typeid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserid != null">
+        create_userid = #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserid != null">
+        update_userid = #{updateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="updateName != null">
+        update_name = #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where tpcid = #{tpcid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.jhw.pojo.ProblemContentPoJo">
+    update t_problem_content
+    set typeid = #{typeid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_userid = #{createUserid,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_userid = #{updateUserid,jdbcType=INTEGER},
+      update_name = #{updateName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where tpcid = #{tpcid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.ProblemContentPoJo">
+    update t_problem_content
+    set typeid = #{typeid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_userid = #{createUserid,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_userid = #{updateUserid,jdbcType=INTEGER},
+      update_name = #{updateName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where tpcid = #{tpcid,jdbcType=INTEGER}
+  </update>
+</mapper>

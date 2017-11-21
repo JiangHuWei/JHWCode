@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.MPartyUserAttentPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.MPartyUserAttentPoJo">
+    <id column="tmpuaid" jdbcType="INTEGER" property="tmpuaid" />
+    <result column="partyid" jdbcType="INTEGER" property="partyid" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="cost" jdbcType="VARCHAR" property="cost" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="attentstatus" jdbcType="INTEGER" property="attentStatus" />
+    <result column="reason" jdbcType="VARCHAR" property="reason" />
+    <result column="commentid" jdbcType="VARCHAR" property="commentId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tmpuaid, partyid, userid, create_date, create_name,cost,attentstatus,reason,commentid
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_m_party_user_attent
+    where tmpuaid = #{tmpuaid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_m_party_user_attent
+    where tmpuaid = #{tmpuaid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.MPartyUserAttentPoJo">
+    insert into t_m_party_user_attent (tmpuaid, partyid, userid, 
+      create_date, create_name)
+    values (#{tmpuaid,jdbcType=INTEGER}, #{partyid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{createName,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.MPartyUserAttentPoJo">
+    insert into t_m_party_user_attent
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tmpuaid != null">
+        tmpuaid,
+      </if>
+      <if test="partyid != null">
+        partyid,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tmpuaid != null">
+        #{tmpuaid,jdbcType=INTEGER},
+      </if>
+      <if test="partyid != null">
+        #{partyid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.MPartyUserAttentPoJo">
+    update t_m_party_user_attent
+    <set>
+      <if test="partyid != null">
+        partyid = #{partyid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tmpuaid = #{tmpuaid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.MPartyUserAttentPoJo">
+    update t_m_party_user_attent
+    set partyid = #{partyid,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_name = #{createName,jdbcType=VARCHAR}
+    where tmpuaid = #{tmpuaid,jdbcType=INTEGER}
+  </update>
+</mapper>

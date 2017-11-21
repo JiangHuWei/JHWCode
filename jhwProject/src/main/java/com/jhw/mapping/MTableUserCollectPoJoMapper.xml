@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.MTableUserCollectPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.MTableUserCollectPoJo">
+    <id column="tmtucid" jdbcType="INTEGER" property="tmtucid" />
+    <result column="tableid" jdbcType="INTEGER" property="tableid" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="user_name" jdbcType="VARCHAR" property="userName" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tmtucid, tableid, userid, create_date, user_name, update_date, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_m_table_user_collect
+    where tmtucid = #{tmtucid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_m_table_user_collect
+    where tmtucid = #{tmtucid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.MTableUserCollectPoJo">
+    insert into t_m_table_user_collect (tmtucid, tableid, userid, 
+      create_date, user_name, update_date, 
+      status)
+    values (#{tmtucid,jdbcType=INTEGER}, #{tableid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{userName,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, 
+      #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.MTableUserCollectPoJo">
+    insert into t_m_table_user_collect
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tmtucid != null">
+        tmtucid,
+      </if>
+      <if test="tableid != null">
+        tableid,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tmtucid != null">
+        #{tmtucid,jdbcType=INTEGER},
+      </if>
+      <if test="tableid != null">
+        #{tableid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.MTableUserCollectPoJo">
+    update t_m_table_user_collect
+    <set>
+      <if test="tableid != null">
+        tableid = #{tableid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="userName != null">
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tmtucid = #{tmtucid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.MTableUserCollectPoJo">
+    update t_m_table_user_collect
+    set tableid = #{tableid,jdbcType=INTEGER},
+      userid = #{userid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      user_name = #{userName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      status = #{status,jdbcType=INTEGER}
+    where tmtucid = #{tmtucid,jdbcType=INTEGER}
+  </update>
+</mapper>

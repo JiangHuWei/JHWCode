@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.PartyPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.PartyPoJo">
+    <id column="tpid" jdbcType="INTEGER" property="tpid" />
+    <result column="initiator" jdbcType="INTEGER" property="initiator" />
+    <result column="people_type" jdbcType="INTEGER" property="peopleType" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="party_date" jdbcType="VARCHAR" property="partyDate" />
+    <result column="introduce" jdbcType="VARCHAR" property="introduce" />
+    <result column="commentid" jdbcType="INTEGER" property="commentid" />
+    <result column="create_userid" jdbcType="INTEGER" property="createUserid" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="create_username" jdbcType="VARCHAR" property="createUsername" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="sex_require" jdbcType="VARCHAR" property="sexRequire" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="startstatus" jdbcType="INTEGER" property="startstatus" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tpid, initiator, people_type, address, party_date, introduce, commentid, create_userid, 
+    create_date, create_username,title,sex_require,status,startstatus
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_party
+    where tpid = #{tpid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_party
+    where tpid = #{tpid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.PartyPoJo">
+    insert into t_party (tpid, initiator, people_type, 
+      address, party_date, introduce, 
+      commentid, create_userid, create_date, 
+      create_username)
+    values (#{tpid,jdbcType=INTEGER}, #{initiator,jdbcType=INTEGER}, #{peopleType,jdbcType=INTEGER}, 
+      #{address,jdbcType=VARCHAR}, #{partyDate,jdbcType=TIMESTAMP}, #{introduce,jdbcType=VARCHAR}, 
+      #{commentid,jdbcType=INTEGER}, #{createUserid,jdbcType=INTEGER}, #{createDate,jdbcType=TIMESTAMP}, 
+      #{createUsername,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.PartyPoJo">
+    insert into t_party
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tpid != null">
+        tpid,
+      </if>
+      <if test="initiator != null">
+        initiator,
+      </if>
+      <if test="peopleType != null">
+        people_type,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="partyDate != null">
+        party_date,
+      </if>
+      <if test="introduce != null">
+        introduce,
+      </if>
+      <if test="commentid != null">
+        commentid,
+      </if>
+      <if test="createUserid != null">
+        create_userid,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createUsername != null">
+        create_username,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tpid != null">
+        #{tpid,jdbcType=INTEGER},
+      </if>
+      <if test="initiator != null">
+        #{initiator,jdbcType=INTEGER},
+      </if>
+      <if test="peopleType != null">
+        #{peopleType,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="partyDate != null">
+        #{partyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="introduce != null">
+        #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="commentid != null">
+        #{commentid,jdbcType=INTEGER},
+      </if>
+      <if test="createUserid != null">
+        #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUsername != null">
+        #{createUsername,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.PartyPoJo">
+    update t_party
+    <set>
+      <if test="initiator != null">
+        initiator = #{initiator,jdbcType=INTEGER},
+      </if>
+      <if test="peopleType != null">
+        people_type = #{peopleType,jdbcType=INTEGER},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="partyDate != null">
+        party_date = #{partyDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="introduce != null">
+        introduce = #{introduce,jdbcType=VARCHAR},
+      </if>
+      <if test="commentid != null">
+        commentid = #{commentid,jdbcType=INTEGER},
+      </if>
+      <if test="createUserid != null">
+        create_userid = #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUsername != null">
+        create_username = #{createUsername,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tpid = #{tpid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.PartyPoJo">
+    update t_party
+    set initiator = #{initiator,jdbcType=INTEGER},
+      people_type = #{peopleType,jdbcType=INTEGER},
+      address = #{address,jdbcType=VARCHAR},
+      party_date = #{partyDate,jdbcType=TIMESTAMP},
+      introduce = #{introduce,jdbcType=VARCHAR},
+      commentid = #{commentid,jdbcType=INTEGER},
+      create_userid = #{createUserid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_username = #{createUsername,jdbcType=VARCHAR}
+    where tpid = #{tpid,jdbcType=INTEGER}
+  </update>
+</mapper>

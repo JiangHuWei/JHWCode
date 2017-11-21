@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.TableBrowserPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.TableBrowserPoJo">
+    <id column="ttbid" jdbcType="INTEGER" property="ttbid" />
+    <result column="tableid" jdbcType="INTEGER" property="tableid" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="datetime" jdbcType="VARCHAR" property="datetime" />
+    <result column="ip" jdbcType="VARCHAR" property="ip" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ttbid, tableid, count, status, datetime, ip
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_table_browser
+    where ttbid = #{ttbid,jdbcType=INTEGER}
+  </select>
+  <!-- 计算正在凑人数的有效拼桌的总浏览量 -->
+  <select id="totalCount" resultType="java.lang.Integer">
+	  SELECT 
+	  	SUM(count) 
+	  FROM 
+	  	t_table_browser 
+	  WHERE 
+	  	`status`=0;
+  </select>
+  <!-- 根据拼桌id检索该拼桌的浏览量 -->
+  <select id="getBrowserCountByTableId" resultType="java.lang.Integer">
+  	SELECT 
+  		count 
+  	FROM 
+  		t_table_browser 
+  	WHERE 
+  		tableid=#{tableId,jdbcType=INTEGER}
+  	AND 
+  		`status`=0;
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_table_browser
+    where ttbid = #{ttbid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.TableBrowserPoJo">
+    insert into t_table_browser (ttbid, tableid, count, 
+      status, datetime, ip
+      )
+    values (#{ttbid,jdbcType=INTEGER}, #{tableid,jdbcType=INTEGER}, #{count,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{datetime,jdbcType=VARCHAR}, #{ip,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.TableBrowserPoJo">
+    insert into t_table_browser
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ttbid != null">
+        ttbid,
+      </if>
+      <if test="tableid != null">
+        tableid,
+      </if>
+      <if test="count != null">
+        count,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="datetime != null">
+        datetime,
+      </if>
+      <if test="ip != null">
+        ip,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ttbid != null">
+        #{ttbid,jdbcType=INTEGER},
+      </if>
+      <if test="tableid != null">
+        #{tableid,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        #{count,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="datetime != null">
+        #{datetime,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        #{ip,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.TableBrowserPoJo">
+    update t_table_browser
+    <set>
+      <if test="tableid != null">
+        tableid = #{tableid,jdbcType=INTEGER},
+      </if>
+      <if test="count != null">
+        count = #{count,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="datetime != null">
+        datetime = #{datetime,jdbcType=VARCHAR},
+      </if>
+      <if test="ip != null">
+        ip = #{ip,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ttbid = #{ttbid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.TableBrowserPoJo">
+    update t_table_browser
+    set tableid = #{tableid,jdbcType=INTEGER},
+      count = #{count,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      datetime = #{datetime,jdbcType=VARCHAR},
+      ip = #{ip,jdbcType=VARCHAR}
+    where ttbid = #{ttbid,jdbcType=INTEGER}
+  </update>
+</mapper>

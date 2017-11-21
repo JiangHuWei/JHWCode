@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.ProblemTypePoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.ProblemTypePoJo">
+    <id column="tptid" jdbcType="INTEGER" property="tptid" />
+    <result column="typename" jdbcType="VARCHAR" property="typename" />
+    <result column="parentid" jdbcType="INTEGER" property="parentid" />
+    <result column="typedescribe" jdbcType="VARCHAR" property="typedescribe" />
+    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+    <result column="create_userid" jdbcType="INTEGER" property="createUserid" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="update_date" jdbcType="TIMESTAMP" property="updateDate" />
+    <result column="update_userid" jdbcType="INTEGER" property="updateUserid" />
+    <result column="update_name" jdbcType="VARCHAR" property="updateName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tptid, typename, parentid, typedescribe, create_date, create_userid, create_name, 
+    update_date, update_userid, update_name, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_problem_type
+    where tptid = #{tptid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_problem_type
+    where tptid = #{tptid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.ProblemTypePoJo">
+    insert into t_problem_type (tptid, typename, parentid, 
+      typedescribe, create_date, create_userid, 
+      create_name, update_date, update_userid, 
+      update_name, status)
+    values (#{tptid,jdbcType=INTEGER}, #{typename,jdbcType=VARCHAR}, #{parentid,jdbcType=INTEGER}, 
+      #{typedescribe,jdbcType=VARCHAR}, #{createDate,jdbcType=TIMESTAMP}, #{createUserid,jdbcType=INTEGER}, 
+      #{createName,jdbcType=VARCHAR}, #{updateDate,jdbcType=TIMESTAMP}, #{updateUserid,jdbcType=INTEGER}, 
+      #{updateName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.ProblemTypePoJo">
+    insert into t_problem_type
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tptid != null">
+        tptid,
+      </if>
+      <if test="typename != null">
+        typename,
+      </if>
+      <if test="parentid != null">
+        parentid,
+      </if>
+      <if test="typedescribe != null">
+        typedescribe,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createUserid != null">
+        create_userid,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="updateUserid != null">
+        update_userid,
+      </if>
+      <if test="updateName != null">
+        update_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tptid != null">
+        #{tptid,jdbcType=INTEGER},
+      </if>
+      <if test="typename != null">
+        #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="typedescribe != null">
+        #{typedescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserid != null">
+        #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserid != null">
+        #{updateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="updateName != null">
+        #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.ProblemTypePoJo">
+    update t_problem_type
+    <set>
+      <if test="typename != null">
+        typename = #{typename,jdbcType=VARCHAR},
+      </if>
+      <if test="parentid != null">
+        parentid = #{parentid,jdbcType=INTEGER},
+      </if>
+      <if test="typedescribe != null">
+        typedescribe = #{typedescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUserid != null">
+        create_userid = #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUserid != null">
+        update_userid = #{updateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="updateName != null">
+        update_name = #{updateName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tptid = #{tptid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.ProblemTypePoJo">
+    update t_problem_type
+    set typename = #{typename,jdbcType=VARCHAR},
+      parentid = #{parentid,jdbcType=INTEGER},
+      typedescribe = #{typedescribe,jdbcType=VARCHAR},
+      create_date = #{createDate,jdbcType=TIMESTAMP},
+      create_userid = #{createUserid,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR},
+      update_date = #{updateDate,jdbcType=TIMESTAMP},
+      update_userid = #{updateUserid,jdbcType=INTEGER},
+      update_name = #{updateName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where tptid = #{tptid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,288 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.TablePoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.TablePoJo">
+    <id column="ttid" jdbcType="INTEGER" property="ttid" />
+    <result column="initiatorid" jdbcType="INTEGER" property="initiatorid" />
+    <result column="table_explain" jdbcType="VARCHAR" property="tableExplain" />
+    <result column="expect" jdbcType="VARCHAR" property="expect" />
+    <result column="restaurantid" jdbcType="INTEGER" property="restaurantid" />
+    <result column="people_number" jdbcType="INTEGER" property="peopleNumber" />
+    <result column="sex_require" jdbcType="INTEGER" property="sexRequire" />
+    <result column="begain_date" jdbcType="VARCHAR" property="begainDate" />
+    <result column="check_number" jdbcType="INTEGER" property="checkNumber" />
+    <result column="attent_number" jdbcType="INTEGER" property="attentNumber" />
+    <result column="collect_number" jdbcType="INTEGER" property="collectNumber" />
+    <result column="commentid" jdbcType="INTEGER" property="commentid" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="create_userid" jdbcType="INTEGER" property="createUserid" />
+    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="startstatus" jdbcType="INTEGER" property="startstatus" />
+    <!-- 餐厅一对一 -->
+    <association property="restaurantPoJo" javaType="com.jhw.pojo.RestaurantPoJo">
+    	<id column="trid" property="trid" />
+    	<result column="business_id" property="businessId"/>
+    	<result column="name" property="name"/>
+    	<result column="create_date" property="createDate"/>
+    	<result column="location" property="location"/>
+    </association>
+    <!-- 参加拼桌用户 一对多 -->
+    <collection property="userAttentPoJo" ofType="com.jhw.pojo.MTableAttentPoJo">
+    	<id column="tmtaid" jdbcType="INTEGER" property="tmtaid" />
+	    <result column="table_id" jdbcType="INTEGER" property="tableId" />
+	    <result column="user_id" jdbcType="INTEGER" property="userId" />
+	    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+	    <result column="user_name" jdbcType="INTEGER" property="userName" />
+    </collection>
+    <!-- <collection property="comments" ofType="com.jhw.pojo.CommentPoJo">
+    	<id column="tcid" jdbcType="INTEGER" property="tcid" />
+	    <result column="userid" jdbcType="INTEGER" property="userid" />
+	    <result column="typeid" jdbcType="INTEGER" property="typeid" />
+	    <result column="comment" jdbcType="VARCHAR" property="comment" />
+	    <result column="parentid" jdbcType="INTEGER" property="parentid" />
+	    <result column="create_date" jdbcType="TIMESTAMP" property="createDate" />
+	    <result column="create_name" jdbcType="VARCHAR" property="createName" />
+    </collection> -->
+  </resultMap>
+  <sql id="Base_Column_List">
+    t.ttid, t.initiatorid, t.table_explain, t.expect, t.restaurantid,t.people_number, t.sex_require, t.begain_date,
+    t.check_number, t.attent_number, t.collect_number, t.commentid, t.create_date, t.create_userid,t.create_name,t.status,
+    t.startstatus
+  </sql>
+  <!-- 需要增加的功能
+  	 ：当拼桌成局或解散或失效之后要更新t_table_browser表的status字段，将其设置为-1(无效状态)。
+  	 这样计算拼桌浏览总数时就不会把该拼桌的浏览量计入总浏览量了。
+   -->
+  
+  <!-- 餐厅信息 -->
+  <sql id="Base_Restaurant_Column_List">
+  	r.trid,r.business_id,r.name,r.create_date,r.location
+  </sql>
+  <!-- 拼桌用户中间表信息 -->
+  <sql id="Base_Attent_Table_User">
+  	tua.tmtaid,tua.table_id,tua.user_id,tua.create_date,tua.user_name
+  </sql>
+  <!-- 分页检索所有有效拼桌信息 待修改-->
+  <select id="selectAllTable" resultMap="BaseResultMap">
+  	SELECT 
+  		<include refid="Base_Column_List" /> ,<include refid="Base_Restaurant_Column_List" />
+  	FROM 
+  		t_table t,t_restaurant r
+  	WHERE 
+  		`status`=0 AND t.restaurantid=r.trid
+  	LIMIT 
+  		#{start,jdbcType=INTEGER},#{limit,jdbcType=INTEGER};
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    SELECT 
+    	<include refid="Base_Column_List" />,<include refid="Base_Restaurant_Column_List"/> 
+    FROM 
+    	t_restaurant r 
+    LEFT JOIN 
+    	t_table t 
+    ON 
+    	r.trid = t.restaurantid 
+    WHERE 
+    	t.ttid=#{ttid,jdbcType=INTEGER};
+  </select>
+  <!-- 检索所有有效的、未成局的饭局 -->
+  <select id="getValidAndNotCompleteTable" resultMap="BaseResultMap">
+  	SELECT 
+  		<include refid="Base_Column_List" />
+  	FROM 
+  		t_table t
+  	WHERE 
+  		`status`=0 
+  	AND 
+  		startstatus=1;
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_table
+    where ttid = #{ttid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.TablePoJo">
+    insert into t_table (ttid, initiatorid, table_explain, 
+      expect, restaurantid, people_number, 
+      sex_require, begain_date, check_number, 
+      attent_number, collect_number, commentid, 
+      create_date, create_userid, create_name
+      )
+    values (#{ttid,jdbcType=INTEGER}, #{initiatorid,jdbcType=INTEGER}, #{tableExplain,jdbcType=VARCHAR}, 
+      #{expect,jdbcType=VARCHAR}, #{restaurantid,jdbcType=INTEGER}, #{peopleNumber,jdbcType=INTEGER}, 
+      #{sexRequire,jdbcType=INTEGER}, #{begainDate,jdbcType=VARCHAR}, #{checkNumber,jdbcType=INTEGER}, 
+      #{attentNumber,jdbcType=INTEGER}, #{collectNumber,jdbcType=INTEGER}, #{commentid,jdbcType=INTEGER}, 
+      #{createDate,jdbcType=VARCHAR}, #{createUserid,jdbcType=INTEGER}, #{createName,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.TablePoJo" useGeneratedKeys="true" keyProperty="ttid">
+    insert into t_table
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ttid != null">
+        ttid,
+      </if>
+      <if test="initiatorid != null">
+        initiatorid,
+      </if>
+      <if test="tableExplain != null">
+        table_explain,
+      </if>
+      <if test="expect != null">
+        expect,
+      </if>
+      <if test="restaurantid != null">
+        restaurantid,
+      </if>
+      <if test="peopleNumber != null">
+        people_number,
+      </if>
+      <if test="sexRequire != null">
+        sex_require,
+      </if>
+      <if test="begainDate != null">
+        begain_date,
+      </if>
+      <if test="checkNumber != null">
+        check_number,
+      </if>
+      <if test="attentNumber != null">
+        attent_number,
+      </if>
+      <if test="collectNumber != null">
+        collect_number,
+      </if>
+      <if test="commentid != null">
+        commentid,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createUserid != null">
+        create_userid,
+      </if>
+      <if test="createName != null">
+        create_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ttid != null">
+        #{ttid,jdbcType=INTEGER},
+      </if>
+      <if test="initiatorid != null">
+        #{initiatorid,jdbcType=INTEGER},
+      </if>
+      <if test="tableExplain != null">
+        #{tableExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="expect != null">
+        #{expect,jdbcType=VARCHAR},
+      </if>
+      <if test="restaurantid != null">
+        #{restaurantid,jdbcType=INTEGER},
+      </if>
+      <if test="peopleNumber != null">
+        #{peopleNumber,jdbcType=INTEGER},
+      </if>
+      <if test="sexRequire != null">
+        #{sexRequire,jdbcType=INTEGER},
+      </if>
+      <if test="begainDate != null">
+        #{begainDate,jdbcType=VARCHAR},
+      </if>
+      <if test="checkNumber != null">
+        #{checkNumber,jdbcType=INTEGER},
+      </if>
+      <if test="attentNumber != null">
+        #{attentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="collectNumber != null">
+        #{collectNumber,jdbcType=INTEGER},
+      </if>
+      <if test="commentid != null">
+        #{commentid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserid != null">
+        #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        #{createName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.TablePoJo">
+    update t_table
+    <set>
+      <if test="initiatorid != null">
+        initiatorid = #{initiatorid,jdbcType=INTEGER},
+      </if>
+      <if test="tableExplain != null">
+        table_explain = #{tableExplain,jdbcType=VARCHAR},
+      </if>
+      <if test="expect != null">
+        expect = #{expect,jdbcType=VARCHAR},
+      </if>
+      <if test="restaurantid != null">
+        restaurantid = #{restaurantid,jdbcType=INTEGER},
+      </if>
+      <if test="peopleNumber != null">
+        people_number = #{peopleNumber,jdbcType=INTEGER},
+      </if>
+      <if test="sexRequire != null">
+        sex_require = #{sexRequire,jdbcType=INTEGER},
+      </if>
+      <if test="begainDate != null">
+        begain_date = #{begainDate,jdbcType=VARCHAR},
+      </if>
+      <if test="checkNumber != null">
+        check_number = #{checkNumber,jdbcType=INTEGER},
+      </if>
+      <if test="attentNumber != null">
+        attent_number = #{attentNumber,jdbcType=INTEGER},
+      </if>
+      <if test="collectNumber != null">
+        collect_number = #{collectNumber,jdbcType=INTEGER},
+      </if>
+      <if test="commentid != null">
+        commentid = #{commentid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=VARCHAR},
+      </if>
+      <if test="createUserid != null">
+        create_userid = #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createName != null">
+        create_name = #{createName,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ttid = #{ttid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.TablePoJo">
+    update t_table
+    set initiatorid = #{initiatorid,jdbcType=INTEGER},
+      table_explain = #{tableExplain,jdbcType=VARCHAR},
+      expect = #{expect,jdbcType=VARCHAR},
+      restaurantid = #{restaurantid,jdbcType=INTEGER},
+      people_number = #{peopleNumber,jdbcType=INTEGER},
+      sex_require = #{sexRequire,jdbcType=INTEGER},
+      begain_date = #{begainDate,jdbcType=VARCHAR},
+      check_number = #{checkNumber,jdbcType=INTEGER},
+      attent_number = #{attentNumber,jdbcType=INTEGER},
+      collect_number = #{collectNumber,jdbcType=INTEGER},
+      commentid = #{commentid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=VARCHAR},
+      create_userid = #{createUserid,jdbcType=INTEGER},
+      create_name = #{createName,jdbcType=VARCHAR}
+    where ttid = #{ttid,jdbcType=INTEGER}
+  </update>
+</mapper>

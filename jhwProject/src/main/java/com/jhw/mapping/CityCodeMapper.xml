@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.CityCodeMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.CityCode">
+    <id column="tccid" jdbcType="INTEGER" property="tccid" />
+    <result column="cityname" jdbcType="VARCHAR" property="cityname" />
+    <result column="adcode" jdbcType="VARCHAR" property="adcode" />
+    <result column="citycode" jdbcType="VARCHAR" property="citycode" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tccid, cityname, adcode, citycode, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_city_code
+    where tccid = #{tccid,jdbcType=INTEGER}
+  </select>
+  
+  <!--  根据省adcode前两位检索下辖市 -->
+  <select id="selectCityCode" resultMap="BaseResultMap">
+  	SELECT 
+		<include refid="Base_Column_List" /> 
+	FROM 
+		t_city_code 
+	WHERE 
+		adcode LIKE #{code,jdbcType=VARCHAR};
+  </select>
+  
+  <!--  根据adcode通配符 检索所有市一级信息 -->
+  <select id="selectAllCityInfo" resultMap="BaseResultMap">
+  	SELECT 
+		<include refid="Base_Column_List" />
+	FROM 
+		t_city_code 
+	WHERE 
+		adcode LIKE #{code,jdbcType=VARCHAR}
+	AND
+		citycode IS NOT NULL
+	AND 
+		cityname  LIKE '%市';
+  </select>
+  
+  <!--  根据adcode通配符 检索所有市一级信息，并按字母顺序从	a到z排序 -->
+  <select id="selectSortAllCityName" resultType="String">
+  	SELECT 
+		cityname 
+	FROM 
+		t_city_code 
+	WHERE 
+		adcode LIKE #{code,jdbcType=VARCHAR}
+	AND
+		citycode IS NOT NULL
+	AND 
+		cityname  LIKE '%市'
+	ORDER BY 
+		CONVERT(cityname USING GBK) asc;
+  </select>
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_city_code
+    where tccid = #{tccid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.CityCode">
+    insert into t_city_code (tccid, cityname, adcode, 
+      citycode, status)
+    values (#{tccid,jdbcType=INTEGER}, #{cityname,jdbcType=VARCHAR}, #{adcode,jdbcType=VARCHAR}, 
+      #{citycode,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.CityCode">
+    insert into t_city_code
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tccid != null">
+        tccid,
+      </if>
+      <if test="cityname != null">
+        cityname,
+      </if>
+      <if test="adcode != null">
+        adcode,
+      </if>
+      <if test="citycode != null">
+        citycode,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tccid != null">
+        #{tccid,jdbcType=INTEGER},
+      </if>
+      <if test="cityname != null">
+        #{cityname,jdbcType=VARCHAR},
+      </if>
+      <if test="adcode != null">
+        #{adcode,jdbcType=VARCHAR},
+      </if>
+      <if test="citycode != null">
+        #{citycode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.CityCode">
+    update t_city_code
+    <set>
+      <if test="cityname != null">
+        cityname = #{cityname,jdbcType=VARCHAR},
+      </if>
+      <if test="adcode != null">
+        adcode = #{adcode,jdbcType=VARCHAR},
+      </if>
+      <if test="citycode != null">
+        citycode = #{citycode,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tccid = #{tccid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.CityCode">
+    update t_city_code
+    set cityname = #{cityname,jdbcType=VARCHAR},
+      adcode = #{adcode,jdbcType=VARCHAR},
+      citycode = #{citycode,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where tccid = #{tccid,jdbcType=INTEGER}
+  </update>
+</mapper>

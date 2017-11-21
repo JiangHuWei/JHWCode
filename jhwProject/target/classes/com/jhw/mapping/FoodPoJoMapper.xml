@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.FoodPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.FoodPoJo">
+    <id column="tpfid" jdbcType="INTEGER" property="tpfid" />
+    <result column="menuofuser" jdbcType="INTEGER" property="menuofuser" />
+    <result column="foodname" jdbcType="VARCHAR" property="foodname" />
+    <result column="fooddescribe" jdbcType="VARCHAR" property="fooddescribe" />
+    <result column="foodimgurl" jdbcType="VARCHAR" property="foodimgurl" />
+    <result column="mark" jdbcType="VARCHAR" property="mark" />
+    <result column="commentid" jdbcType="INTEGER" property="commentid" />
+    <result column="create_userid" jdbcType="INTEGER" property="createUserid" />
+    <result column="create_date" jdbcType="VARCHAR" property="createDate" />
+    <result column="create_username" jdbcType="VARCHAR" property="createUsername" />
+    <result column="update_userid" jdbcType="INTEGER" property="updateUserid" />
+    <result column="update_date" jdbcType="DATE" property="updateDate" />
+    <result column="update_username" jdbcType="VARCHAR" property="updateUsername" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tpfid, menuofuser, foodname, fooddescribe, foodimgurl, mark, commentid, create_userid, 
+    create_date, create_username, update_userid, update_date, update_username,status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_food
+    where tpfid = #{tpfid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_food
+    where tpfid = #{tpfid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.FoodPoJo">
+    insert into t_food (tpfid, menuofuser, foodname, 
+      fooddescribe, foodimgurl, mark, 
+      commentid, create_userid, create_date, 
+      create_username, update_userid, update_date, 
+      update_username)
+    values (#{tpfid,jdbcType=INTEGER}, #{menuofuser,jdbcType=INTEGER}, #{foodname,jdbcType=VARCHAR}, 
+      #{fooddescribe,jdbcType=VARCHAR}, #{foodimgurl,jdbcType=VARCHAR}, #{mark,jdbcType=VARCHAR}, 
+      #{commentid,jdbcType=INTEGER}, #{createUserid,jdbcType=INTEGER}, #{createDate,jdbcType=DATE}, 
+      #{createUsername,jdbcType=VARCHAR}, #{updateUserid,jdbcType=INTEGER}, #{updateDate,jdbcType=DATE}, 
+      #{updateUsername,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.FoodPoJo">
+    insert into t_food
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tpfid != null">
+        tpfid,
+      </if>
+      <if test="menuofuser != null">
+        menuofuser,
+      </if>
+      <if test="foodname != null">
+        foodname,
+      </if>
+      <if test="fooddescribe != null">
+        fooddescribe,
+      </if>
+      <if test="foodimgurl != null">
+        foodimgurl,
+      </if>
+      <if test="mark != null">
+        mark,
+      </if>
+      <if test="commentid != null">
+        commentid,
+      </if>
+      <if test="createUserid != null">
+        create_userid,
+      </if>
+      <if test="createDate != null">
+        create_date,
+      </if>
+      <if test="createUsername != null">
+        create_username,
+      </if>
+      <if test="updateUserid != null">
+        update_userid,
+      </if>
+      <if test="updateDate != null">
+        update_date,
+      </if>
+      <if test="updateUsername != null">
+        update_username,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tpfid != null">
+        #{tpfid,jdbcType=INTEGER},
+      </if>
+      <if test="menuofuser != null">
+        #{menuofuser,jdbcType=INTEGER},
+      </if>
+      <if test="foodname != null">
+        #{foodname,jdbcType=VARCHAR},
+      </if>
+      <if test="fooddescribe != null">
+        #{fooddescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="foodimgurl != null">
+        #{foodimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null">
+        #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="commentid != null">
+        #{commentid,jdbcType=INTEGER},
+      </if>
+      <if test="createUserid != null">
+        #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        #{createDate,jdbcType=DATE},
+      </if>
+      <if test="createUsername != null">
+        #{createUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserid != null">
+        #{updateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null">
+        #{updateDate,jdbcType=DATE},
+      </if>
+      <if test="updateUsername != null">
+        #{updateUsername,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.FoodPoJo">
+    update t_food
+    <set>
+      <if test="menuofuser != null">
+        menuofuser = #{menuofuser,jdbcType=INTEGER},
+      </if>
+      <if test="foodname != null">
+        foodname = #{foodname,jdbcType=VARCHAR},
+      </if>
+      <if test="fooddescribe != null">
+        fooddescribe = #{fooddescribe,jdbcType=VARCHAR},
+      </if>
+      <if test="foodimgurl != null">
+        foodimgurl = #{foodimgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="mark != null">
+        mark = #{mark,jdbcType=VARCHAR},
+      </if>
+      <if test="commentid != null">
+        commentid = #{commentid,jdbcType=INTEGER},
+      </if>
+      <if test="createUserid != null">
+        create_userid = #{createUserid,jdbcType=INTEGER},
+      </if>
+      <if test="createDate != null">
+        create_date = #{createDate,jdbcType=DATE},
+      </if>
+      <if test="createUsername != null">
+        create_username = #{createUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="updateUserid != null">
+        update_userid = #{updateUserid,jdbcType=INTEGER},
+      </if>
+      <if test="updateDate != null">
+        update_date = #{updateDate,jdbcType=DATE},
+      </if>
+      <if test="updateUsername != null">
+        update_username = #{updateUsername,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tpfid = #{tpfid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.FoodPoJo">
+    update t_food
+    set menuofuser = #{menuofuser,jdbcType=INTEGER},
+      foodname = #{foodname,jdbcType=VARCHAR},
+      fooddescribe = #{fooddescribe,jdbcType=VARCHAR},
+      foodimgurl = #{foodimgurl,jdbcType=VARCHAR},
+      mark = #{mark,jdbcType=VARCHAR},
+      commentid = #{commentid,jdbcType=INTEGER},
+      create_userid = #{createUserid,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=DATE},
+      create_username = #{createUsername,jdbcType=VARCHAR},
+      update_userid = #{updateUserid,jdbcType=INTEGER},
+      update_date = #{updateDate,jdbcType=DATE},
+      update_username = #{updateUsername,jdbcType=VARCHAR}
+    where tpfid = #{tpfid,jdbcType=INTEGER}
+  </update>
+</mapper>

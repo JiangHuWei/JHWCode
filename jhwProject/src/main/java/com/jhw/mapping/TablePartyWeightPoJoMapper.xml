@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.TablePartyWeightPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.TablePartyWeightPoJo">
+    <id column="tpwid" jdbcType="INTEGER" property="tpwid" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="comprehensive_weight" jdbcType="DOUBLE" property="comprehensiveWeight" />
+    <result column="surplusweight" jdbcType="DOUBLE" property="surplusweight" />
+    <result column="checkweight" jdbcType="DOUBLE" property="checkweight" />
+    <result column="timeweight" jdbcType="DOUBLE" property="timeweight" />
+    <result column="commentweight" jdbcType="DOUBLE" property="commentweight" />
+    <result column="collectionweight" jdbcType="DOUBLE" property="collectionweight" />
+    <result column="creditweight" jdbcType="DOUBLE" property="creditweight" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+    <result column="table_party_id" jdbcType="INTEGER" property="tablePartyId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tpwid, type, comprehensive_weight, surplusweight, checkweight, timeweight, commentweight, 
+    collectionweight, creditweight, status, table_party_id
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_table_party_weight
+    where tpwid = #{tpwid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_table_party_weight
+    where tpwid = #{tpwid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.TablePartyWeightPoJo">
+    insert into t_table_party_weight (tpwid, type, comprehensive_weight, 
+      surplusweight, checkweight, timeweight, 
+      commentweight, collectionweight, creditweight, 
+      status, table_party_id)
+    values (#{tpwid,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, #{comprehensiveWeight,jdbcType=DOUBLE}, 
+      #{surplusweight,jdbcType=DOUBLE}, #{checkweight,jdbcType=DOUBLE}, #{timeweight,jdbcType=DOUBLE}, 
+      #{commentweight,jdbcType=DOUBLE}, #{collectionweight,jdbcType=DOUBLE}, #{creditweight,jdbcType=DOUBLE}, 
+      #{status,jdbcType=INTEGER}, #{tablePartyId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.TablePartyWeightPoJo">
+    insert into t_table_party_weight
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tpwid != null">
+        tpwid,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="comprehensiveWeight != null">
+        comprehensive_weight,
+      </if>
+      <if test="surplusweight != null">
+        surplusweight,
+      </if>
+      <if test="checkweight != null">
+        checkweight,
+      </if>
+      <if test="timeweight != null">
+        timeweight,
+      </if>
+      <if test="commentweight != null">
+        commentweight,
+      </if>
+      <if test="collectionweight != null">
+        collectionweight,
+      </if>
+      <if test="creditweight != null">
+        creditweight,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="tablePartyId != null">
+        table_party_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tpwid != null">
+        #{tpwid,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="comprehensiveWeight != null">
+        #{comprehensiveWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="surplusweight != null">
+        #{surplusweight,jdbcType=DOUBLE},
+      </if>
+      <if test="checkweight != null">
+        #{checkweight,jdbcType=DOUBLE},
+      </if>
+      <if test="timeweight != null">
+        #{timeweight,jdbcType=DOUBLE},
+      </if>
+      <if test="commentweight != null">
+        #{commentweight,jdbcType=DOUBLE},
+      </if>
+      <if test="collectionweight != null">
+        #{collectionweight,jdbcType=DOUBLE},
+      </if>
+      <if test="creditweight != null">
+        #{creditweight,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="tablePartyId != null">
+        #{tablePartyId,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.TablePartyWeightPoJo">
+    update t_table_party_weight
+    <set>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="comprehensiveWeight != null">
+        comprehensive_weight = #{comprehensiveWeight,jdbcType=DOUBLE},
+      </if>
+      <if test="surplusweight != null">
+        surplusweight = #{surplusweight,jdbcType=DOUBLE},
+      </if>
+      <if test="checkweight != null">
+        checkweight = #{checkweight,jdbcType=DOUBLE},
+      </if>
+      <if test="timeweight != null">
+        timeweight = #{timeweight,jdbcType=DOUBLE},
+      </if>
+      <if test="commentweight != null">
+        commentweight = #{commentweight,jdbcType=DOUBLE},
+      </if>
+      <if test="collectionweight != null">
+        collectionweight = #{collectionweight,jdbcType=DOUBLE},
+      </if>
+      <if test="creditweight != null">
+        creditweight = #{creditweight,jdbcType=DOUBLE},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="tablePartyId != null">
+        table_party_id = #{tablePartyId,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tpwid = #{tpwid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.TablePartyWeightPoJo">
+    update t_table_party_weight
+    set type = #{type,jdbcType=INTEGER},
+      comprehensive_weight = #{comprehensiveWeight,jdbcType=DOUBLE},
+      surplusweight = #{surplusweight,jdbcType=DOUBLE},
+      checkweight = #{checkweight,jdbcType=DOUBLE},
+      timeweight = #{timeweight,jdbcType=DOUBLE},
+      commentweight = #{commentweight,jdbcType=DOUBLE},
+      collectionweight = #{collectionweight,jdbcType=DOUBLE},
+      creditweight = #{creditweight,jdbcType=DOUBLE},
+      status = #{status,jdbcType=INTEGER},
+      table_party_id = #{tablePartyId,jdbcType=INTEGER}
+    where tpwid = #{tpwid,jdbcType=INTEGER}
+  </update>
+</mapper>

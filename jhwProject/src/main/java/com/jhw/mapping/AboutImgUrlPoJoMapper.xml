@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.AboutImgUrlPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.AboutImgUrlPoJo">
+    <id column="tauid" jdbcType="INTEGER" property="tauid" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="img_name" jdbcType="VARCHAR" property="imgName" />
+    <result column="status" jdbcType="INTEGER" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tauid, userid, img_url, img_name, status
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_aboutimg_url
+    where tauid = #{tauid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_aboutimg_url
+    where tauid = #{tauid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.AboutImgUrlPoJo">
+    insert into t_aboutimg_url (tauid, userid, img_url, 
+      img_name, status)
+    values (#{tauid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{imgUrl,jdbcType=VARCHAR}, 
+      #{imgName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.AboutImgUrlPoJo">
+    insert into t_aboutimg_url
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tauid != null">
+        tauid,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="imgName != null">
+        img_name,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tauid != null">
+        #{tauid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgName != null">
+        #{imgName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.AboutImgUrlPoJo">
+    update t_aboutimg_url
+    <set>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="imgName != null">
+        img_name = #{imgName,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where tauid = #{tauid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.AboutImgUrlPoJo">
+    update t_aboutimg_url
+    set userid = #{userid,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      img_name = #{imgName,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER}
+    where tauid = #{tauid,jdbcType=INTEGER}
+  </update>
+</mapper>

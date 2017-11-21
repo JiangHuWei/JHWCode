@@ -1,0 +1,237 @@
+@charset "UTF-8"; 
+
+.full-width {
+	width: 100% !important
+}
+
+body {
+	font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif
+}
+
+.am-pureview {
+	z-index: 9999
+}
+
+.jhw-popup {
+	border-radius: 5px;
+	border: 1px solid #f7db59;
+	position: absolute;
+	background-color: #f1f1f1
+}
+
+.jhw-popup .jhw-popup-inner {
+	padding-top: 212px;
+	overflow-x: hidden
+}
+
+.jhw-popup .jhw-popup-inner .am-popup-hd {
+	height: auto;
+	padding: 15px 0 5px
+}
+
+.jhw-popup .jhw-popup-inner .am-popup-hd .am-close {
+	position: absolute
+}
+
+.jhw-popup .jhw-popup-inner .am-popup-hd .am-popup-title img {
+	width: 120px;
+	padding: 0;
+	line-height: 1.6;
+	border: 2px solid #f7db59
+}
+
+.jhw-popup .jhw-popup-inner .am-popup-hd .jhw-user-intro {
+	margin-top: 1rem;
+	font-size: 14px;
+	margin-bottom: 0
+}
+
+.jhw-popup .jhw-popup-inner .am-popup-hd .jhw-user-intro span {
+	font-weight: 700;
+	font-size: 20px
+}
+
+.jhw-popup .jhw-popup-inner .am-popup-bd {
+	background-color: #f1f1f1;
+	border-radius: 8px;
+	padding: 0 20px
+}
+
+.jhw-popup .jhw-popup-inner .am-popup-bd ul {
+	margin-bottom: 10px
+}
+
+.jhw-popup .jhw-popup-inner .am-popup-bd ul li {
+	float: left;
+	width: 50%;
+	color: #999
+}
+
+.jhw-popup .jhw-popup-inner .am-popup-bd ul li div {
+	padding-left: 30px;
+	color: #333
+}
+
+.jhw-popup .jhw-popup-inner .am-popup-bd ul li span {
+	color: #333
+}
+
+.jhw-popup .jhw-popup-inner .am-popup-bd ul:after {
+	clear: both;
+	overflow: hidden;
+	content: '';
+	display: block
+}
+
+.jhw-popup .jhw-popup-inner .am-popup-bd .am-slider-default {
+	margin: 0;
+	background-color: none;
+	border-radius: none;
+	-webkit-box-shadow: none;
+	box-shadow: none
+}
+
+.container {
+	width: 400px;
+	margin: 40px auto 0 auto;
+	position: relative;
+	font-family: 微软雅黑;
+	font-size: 12px
+}
+
+.container p {
+	line-height: 12px;
+	line-height: 0;
+	height: 0;
+	margin: 10px;
+	color: #bbb
+}
+
+.action {
+	width: 400px;
+	height: 30px;
+	margin: 10px 0
+}
+
+.cropped {
+	position: absolute;
+	right: -230px;
+	top: 0;
+	width: 200px;
+	border: 1px #ddd solid;
+	height: 460px;
+	padding: 4px;
+	box-shadow: 0 0 12px #ddd;
+	text-align: center
+}
+
+.imageBox {
+	position: relative;
+	height: 400px;
+	width: 400px;
+	border: 1px solid #aaa;
+	background: #fff;
+	overflow: hidden;
+	background-repeat: no-repeat;
+	cursor: move;
+	box-shadow: 4px 4px 12px #b0b0b0
+}
+
+.imageBox .thumbBox {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	width: 200px;
+	height: 200px;
+	margin-top: -100px;
+	margin-left: -100px;
+	box-sizing: border-box;
+	border: 1px solid #666;
+	box-shadow: 0 0 0 1000px rgba(0, 0, 0, .5);
+	background: none repeat scroll 0 0 transparent
+}
+
+.imageBox .spinner {
+	position: absolute;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	text-align: center;
+	line-height: 400px;
+	background: rgba(0, 0, 0, .7)
+}
+
+.Btnsty_peyton {
+	float: right;
+	width: 66px;
+	display: inline-block;
+	margin-bottom: 10px;
+	height: 57px;
+	line-height: 57px;
+	font-size: 20px;
+	color: #fff;
+	margin: 0 2px;
+	background-color: #f38e81;
+	border-radius: 3px;
+	text-decoration: none;
+	cursor: pointer;
+	box-shadow: 0 0 5px #b0b0b0;
+	border: 0 #fff solid
+}
+
+.new-contentarea {
+	width: 165px;
+	overflow: hidden;
+	margin: 0 auto;
+	position: relative;
+	float: left;
+	margin-top: 26px
+}
+
+.new-contentarea label {
+	width: 100%;
+	height: 100%;
+	display: block
+}
+
+.new-contentarea input[type=file] {
+	width: 188px;
+	height: 60px;
+	background: #333;
+	margin: 0 auto;
+	position: absolute;
+	right: 50%;
+	margin-right: -94px;
+	top: 0;
+	right: 0\9;
+	margin-right: 0\9;
+	width: 10px\9;
+	opacity: 0;
+	filter: alpha(opacity = 0);
+	z-index: 2
+}
+
+a.upload-img {
+	width: 165px;
+	display: inline-block;
+	margin-bottom: 10px;
+	height: 57px;
+	line-height: 57px;
+	font-size: 20px;
+	color: #fff;
+	background-color: #f38e81;
+	border-radius: 3px;
+	text-decoration: none;
+	cursor: pointer;
+	border: 0 #fff solid;
+	box-shadow: 0 0 5px #b0b0b0
+}
+
+a.upload-img:hover {
+	background-color: #ec7e70
+}
+
+.tc {
+	text-align: center
+}

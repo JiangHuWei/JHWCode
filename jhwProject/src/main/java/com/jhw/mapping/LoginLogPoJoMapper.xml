@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.jhw.dao.LoginLogPoJoMapper">
+  <resultMap id="BaseResultMap" type="com.jhw.pojo.LoginLogPoJo">
+    <id column="tllid" jdbcType="INTEGER" property="tllid" />
+    <result column="userid" jdbcType="INTEGER" property="userid" />
+    <result column="terminalid" jdbcType="INTEGER" property="terminalid" />
+    <result column="login_date" jdbcType="TIMESTAMP" property="loginDate" />
+    <result column="login_place" jdbcType="VARCHAR" property="loginPlace" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    tllid, userid, terminalid, login_date, login_place
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_login_log
+    where tllid = #{tllid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_login_log
+    where tllid = #{tllid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.jhw.pojo.LoginLogPoJo">
+    insert into t_login_log (tllid, userid, terminalid, 
+      login_date, login_place)
+    values (#{tllid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{terminalid,jdbcType=INTEGER}, 
+      #{loginDate,jdbcType=TIMESTAMP}, #{loginPlace,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.jhw.pojo.LoginLogPoJo">
+    insert into t_login_log
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="tllid != null">
+        tllid,
+      </if>
+      <if test="userid != null">
+        userid,
+      </if>
+      <if test="terminalid != null">
+        terminalid,
+      </if>
+      <if test="loginDate != null">
+        login_date,
+      </if>
+      <if test="loginPlace != null">
+        login_place,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="tllid != null">
+        #{tllid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="terminalid != null">
+        #{terminalid,jdbcType=INTEGER},
+      </if>
+      <if test="loginDate != null">
+        #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginPlace != null">
+        #{loginPlace,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.jhw.pojo.LoginLogPoJo">
+    update t_login_log
+    <set>
+      <if test="userid != null">
+        userid = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="terminalid != null">
+        terminalid = #{terminalid,jdbcType=INTEGER},
+      </if>
+      <if test="loginDate != null">
+        login_date = #{loginDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="loginPlace != null">
+        login_place = #{loginPlace,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tllid = #{tllid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.jhw.pojo.LoginLogPoJo">
+    update t_login_log
+    set userid = #{userid,jdbcType=INTEGER},
+      terminalid = #{terminalid,jdbcType=INTEGER},
+      login_date = #{loginDate,jdbcType=TIMESTAMP},
+      login_place = #{loginPlace,jdbcType=VARCHAR}
+    where tllid = #{tllid,jdbcType=INTEGER}
+  </update>
+</mapper>
